@@ -4,7 +4,7 @@ import { FaHome, FaPlus, FaTrophy, FaUser } from 'react-icons/fa';
 
 const BottomNav = () => {
   return (
-    <nav className='fixed bottom-0 left-0 w-full h-16 bg-zinc-200 rounded-t-3xl pt-2'>
+    <nav className='fixed bottom-0 left-0 w-full h-16 bg-gray-200 rounded-t-3xl pt-2'>
       <div className='flex flex-row justify-around items-center w-full'>
         <NavItem href='/' icon={<FaHome />} />
         <NavItem href='/task' icon={<FaPlus />} />
@@ -19,7 +19,9 @@ const NavItem = ({ href, icon }) => {
   const router = useRouter();
 
   const isActive = (path) => {
-    return router.pathname === path ? 'text-blue-600' : 'text-gray-600';
+    return router.pathname === path
+      ? 'bg-primary text-primary-50'
+      : 'text-gray-400';
   };
 
   return (
