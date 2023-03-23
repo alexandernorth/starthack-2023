@@ -22,17 +22,17 @@ func createUsers() error {
 				{
 					Year:   2023,
 					Month:  1,
-					Amount: rand.Intn(100),
+					Amount: 100 + rand.Intn(100),
 				},
 				{
 					Year:   2023,
 					Month:  2,
-					Amount: rand.Intn(100),
+					Amount: 100 + rand.Intn(100),
 				},
 				{
 					Year:   2023,
 					Month:  3,
-					Amount: rand.Intn(100),
+					Amount: 100 + rand.Intn(100),
 				},
 			},
 		},
