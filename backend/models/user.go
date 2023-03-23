@@ -1,9 +1,34 @@
 package models
 
 import (
+	"fmt"
 	"gorm.io/gorm"
 	"time"
 )
+
+type Sites int
+
+const (
+	Zell Sites = iota
+	Schiltach
+	DaellikonFeldhof
+	Orbe
+)
+
+func ParseString(s string) (Sites, error) {
+	switch s {
+	case "zell":
+		return Zell, nil
+	case "schiltach":
+		return Schiltach, nil
+	case "daellikonfeldhof":
+		return DaellikonFeldhof, nil
+	case "orbe":
+		return Orbe, nil
+	default:
+		return Zell, fmt.Errorf("invalid site location")
+	}
+}
 
 type User struct {
 	gorm.Model
@@ -11,6 +36,7 @@ type User struct {
 	Username        string  `json:"uname"`
 	Password        string  `json:"password"`
 	EmployeeProfile string  `json:"employeeProfile"`
+	Site            Sites   `json:"site"`
 	Scores          []Score `json:"scores" gorm:"foreignKey:UserID"`
 }
 
