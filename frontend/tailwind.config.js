@@ -77,6 +77,9 @@ module.exports = {
           DEFAULT: '#a9583c',
         },
       },
+      backgroundImage: {
+        landscape: "url('../public/images/bg.jpg')",
+      },
     },
   },
   plugins: [],

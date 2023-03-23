@@ -8,6 +8,8 @@ const Board = () => {
   const { user, addScore } = useContext(UserContext);
   const [board, setBoard] = useState(makeBoard(user.score));
 
+  console.log(user.score);
+
   const updateScore = (score) => {
     addScore(score);
     setBoard(makeBoard(user.score));
@@ -15,7 +17,7 @@ const Board = () => {
 
   return (
     <div className=''>
-      <div className='flex flex-col-reverse bg-gray-100 gap-4 p-2 pb-20'>
+      <div className='flex flex-col-reverse gap-4 p-2 pb-20'>
         {board.map((row, i) => (
           <TileRow tiles={row.tiles} key={i} />
         ))}
@@ -44,17 +46,22 @@ const TileRow = ({ tiles }) => {
 };
 
 const Tile = ({ tile }) => {
+  if (tile.active) console.log('tile', tile);
+
   return (
     <div
       className={cn(
-        'flex items-center justify-center bg-primary-200 h-20 rounded-xl',
-        { 'bg-accent-200': tile.active }
+        'flex items-center justify-center h-20 rounded-xl border drop-shadow-md',
+        { 'bg-accent-200 border-accent-300/60': tile.active },
+        { 'bg-primary-200 border-primary-300/60': !tile.active }
       )}
     >
       <div
-        className={cn('text-3xl text-center font-bold text-primary-300/60', {
-          'text-accent-300': tile.active,
-        })}
+        className={cn(
+          'text-3xl text-center font-bold',
+          { 'text-accent-300': tile.active },
+          { 'text-primary-300': !tile.active }
+        )}
       >
         {tile.score}
       </div>

@@ -337,6 +337,8 @@ export const makeBoard = (activeTile) => {
   const board = [];
   let score = 1;
 
+  console.log('activeTile', activeTile);
+
   let prevRow = null;
 
   hasTile.forEach((row, i) => {
