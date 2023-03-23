@@ -5,20 +5,69 @@ import (
 	"bytes"
 	"encoding/json"
 	"errors"
+	"fmt"
 	"github.com/alexandernorth/starthack-2023/backend/models"
-	"github.com/goombaio/namegenerator"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
+	"io"
+	"io/fs"
 	"math/rand"
+	"net/http"
 	"path"
-	"time"
 )
+
+func generateNameAPI() (string, error) {
+	url := "https://randomuser.me/api/"
+	method := "GET"
+
+	client := &http.Client{}
+	req, err := http.NewRequest(method, url, nil)
+
+	if err != nil {
+		return "", err
+	}
+
+	res, err := client.Do(req)
+	if err != nil {
+		return "", err
+	}
+
+	defer func(Body io.ReadCloser) {
+		_ = Body.Close()
+	}(res.Body)
+
+	var rn struct {
+		Results []struct {
+			Name struct {
+				First string `json:"first"`
+				Last  string `json:"last"`
+			} `json:"name"`
+		} `json:"results"`
+	}
+
+	body, err := io.ReadAll(res.Body)
+	if err != nil {
+		return "", err
+	}
+
+	err = json.Unmarshal(body, &rn)
+	if err != nil {
+		return "", err
+	}
+
+	if len(rn.Results) > 0 {
+		return rn.Results[0].Name.First + " " + rn.Results[0].Name.Last, nil
+	}
+
+	return "", fmt.Errorf("no results for name generation api")
+
+}
 
 func createUsers() error {
 	users := []models.User{
 		{
 			Model:           gorm.Model{ID: 1},
-			Name:            "Geoff",
+			Name:            "Geoff Jeffers",
 			Username:        "geoffthethird",
 			Password:        "",
 			EmployeeProfile: "Sales",
@@ -42,11 +91,12 @@ func createUsers() error {
 			},
 		},
 	}
-	seed := time.Now().UTC().UnixNano()
-	nameGenerator := namegenerator.NewNameGenerator(seed)
 
 	for i := len(users); i < 50; i++ {
-		name := nameGenerator.Generate()
+		name, err := generateNameAPI()
+		if err != nil {
+			return err
+		}
 		users = append(users, models.User{
 			Model:           gorm.Model{ID: uint(i)},
 			Name:            name,
@@ -106,11 +156,17 @@ func loadSiteData() error {
 	if err != nil {
 		return err
 	}
+	defer func(reader *zip.ReadCloser) {
+		_ = reader.Close()
+	}(reader)
 
 	sd, err := reader.Open("sitedata.json")
 	if err != nil {
 		return err
 	}
+	defer func(sd fs.File) {
+		_ = sd.Close()
+	}(sd)
 
 	var b bytes.Buffer
 	_, err = b.ReadFrom(sd)
