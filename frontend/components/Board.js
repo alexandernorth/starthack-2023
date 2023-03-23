@@ -1,24 +1,40 @@
 import cn from 'classnames';
 import { useContext, useEffect, useState } from 'react';
-import { makeBoard } from './boardData';
+import { makeBoard, updateActiveTile } from './boardData';
+import { DailyDice } from './DailyDice';
 import { UserContext } from '@/app/context/UserContext';
-import { FaCheck, FaPlus } from 'react-icons/fa';
-import { BsDice3 } from 'react-icons/bs';
+import { FaDice, FaPlus, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaRegQuestionCircle } from 'react-icons/fa';
+import { FaRegLightbulb } from 'react-icons/fa';
 
 const Board = () => {
   const { user, addScore } = useContext(UserContext);
   const [board, setBoard] = useState(makeBoard(user.score));
+  const [showDailyDice, setShowDailyDice] = useState(true);
 
   const updateScore = (score) => {
     addScore(score);
-    setBoard(makeBoard(user.score));
   };
+
+  const collectDailyDice = () => {
+    updateScore(3);
+    setShowDailyDice(false);
+  };
+
+  useEffect(() => {
+    let newBoard = updateActiveTile(board, user.score);
+    setBoard(newBoard);
+  }, [user.score]);
+
+  useEffect(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, []);
 
   return (
     <div className=''>
       <div className='z-0 flex flex-col-reverse gap-4 p-2 pb-20'>
         {board.map((row, i) => (
-          <TileRow tiles={row.tiles} key={i} />
+          <TileRow tiles={row.tiles} key={i} userScore={user.score} />
         ))}
       </div>
       <div className=''>
@@ -29,54 +45,74 @@ const Board = () => {
         >
           <FaPlus className='text-3xl m-2' />
         </button>
-        <DailyDice />
+        {showDailyDice && <DailyDice onCollect={collectDailyDice} />}
       </div>
     </div>
   );
 };
 
-const DailyDice = () => {
-  return (
-    <div className='fixed z-90 top-4 w-full p-4'>
-      <div className='z-90 flex gap-2 p-4 justify-center items-center h-20 w-full rounded-2xl bg-white border-primary-300/60 drop-shadow-lg'>
-        <BsDice3 className='h-12 w-12' />
-        <div className='grow text-xl font-bold text-gray-900 ml-4'>
-          Collect your daily dice
-        </div>
-        <div className='rounded-full bg-green-100 p-1'>
-          <FaCheck className='text-2xl m-2 text-green-600' />
-        </div>
-      </div>
-    </div>
-  );
-};
-
-const TileRow = ({ tiles }) => {
+const TileRow = ({ tiles, userScore }) => {
   return (
     <div className='w-full grid grid-cols-4 gap-4 h-20'>
       {tiles.map((tile, i) =>
-        tile ? <Tile tile={tile} key={i} /> : <PlaceholderTile key={i} />
+        tile ? (
+          <Tile tile={tile} key={i} userScore={userScore} />
+        ) : (
+          <PlaceholderTile key={i} />
+        )
       )}
     </div>
   );
 };
 
-const Tile = ({ tile }) => {
-  if (tile.active) console.log('tile', tile);
-
+const Tile = ({ tile, userScore }) => {
+  const pastTile = tile.score < userScore;
   return (
     <div
       className={cn(
-        'flex items-center justify-center h-20 rounded-xl border drop-shadow-md',
-        { 'bg-accent-200 border-accent-300/60': tile.active },
-        { 'bg-primary-200 border-primary-300/60': !tile.active }
+        'flex items-center justify-center h-20 rounded-xl border-2 drop-shadow-md',
+        {
+          'bg-primary-200 border-primary-400 text-primary-300':
+            tile.type == 'quiz' && !pastTile,
+        },
+        {
+          'bg-accent-200 border-accent-400 text-accent-300':
+            tile.type == 'education' && !pastTile,
+        },
+        {
+          'bg-secondary-200 border-secondary-400 text-secondary-300':
+            tile.type == 'fact' && !pastTile,
+        },
+        {
+          'bg-sky-200 border-sky-400 text-sky-300':
+            tile.type == 'chance' && !pastTile,
+        },
+        {
+          'bg-gray-200 border-gray-400 text-gray-300':
+            tile.type == 'empty' || pastTile,
+        },
+        { 'ring-offset-1 ring-4 ring-gray-700 shadow-2xl': tile.active },
+        { 'opacity-90': !tile.active }
       )}
     >
       <div
         className={cn(
-          'text-3xl text-center font-bold',
-          { 'text-accent-300': tile.active },
-          { 'text-primary-300': !tile.active }
+          'text-4xl text-center font-bold',
+          { 'text-primary-500': tile.type == 'quiz' && !pastTile },
+          { ' text-accent-500': tile.type == 'education' && !pastTile },
+          { ' text-secondary-500': tile.type == 'fact' && !pastTile },
+          { ' text-sky-500': tile.type == 'chance' && !pastTile },
+          { 'text-gray-500': tile.type == 'empty' || pastTile }
+        )}
+      >
+        {tile.type == 'quiz' && <FaRegQuestionCircle />}
+        {tile.type == 'education' && <FaRegLightbulb />}
+        {tile.type == 'fact' && <FaChalkboardTeacher />}
+        {tile.type == 'chance' && <FaDice className='text-4xl' />}
+      </div>
+      <div
+        className={cn(
+          'fixed mr-0.5 bottom-0 right-1 text-xl text-center font-bold'
         )}
       >
         {tile.score}

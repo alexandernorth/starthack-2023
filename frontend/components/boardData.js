@@ -1,296 +1,3 @@
-export const boardData = {
-  rows: [
-    {
-      tiles: [
-        {
-          type: 'education',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'chance',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'education',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'chance',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: true,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'education',
-          active: true,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: true,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-    {
-      tiles: [
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'fact',
-          active: true,
-          advance: 1,
-        },
-        {
-          type: 'empty',
-          active: false,
-          advance: 1,
-        },
-        {
-          type: 'quiz',
-          active: false,
-          advance: 1,
-        },
-      ],
-    },
-  ],
-};
-
 const hasTile = [
   [false, false, true, false],
   [true, true, true, false],
@@ -321,7 +28,7 @@ const hasTile = [
   [false, false, false, true],
 ];
 
-const tileTypes = ['empty', 'fact', 'quiz', 'education', 'chance'];
+const tileTypes = ['empty', 'fact', 'quiz', 'education', 'chance', 'empty'];
 
 const getRandomTile = (score, active) => {
   const type = Math.floor(Math.random() * tileTypes.length);
@@ -336,8 +43,6 @@ const getRandomTile = (score, active) => {
 export const makeBoard = (activeTile) => {
   const board = [];
   let score = 1;
-
-  console.log('activeTile', activeTile);
 
   let prevRow = null;
 
@@ -364,6 +69,22 @@ export const makeBoard = (activeTile) => {
   });
 
   return board;
+};
+
+export const updateActiveTile = (board, activeTile) => {
+  return board.map((row) => {
+    return {
+      tiles: row.tiles.map((tile) => {
+        if (tile && tile.score === activeTile) {
+          return { ...tile, active: true };
+        } else if (tile) {
+          return { ...tile, active: false };
+        } else {
+          return null;
+        }
+      }),
+    };
+  });
 };
 
 const inverseDirection = (row, prevRow) => {
