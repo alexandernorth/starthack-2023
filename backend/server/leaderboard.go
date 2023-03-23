@@ -31,7 +31,7 @@ func GetLeaderboard(c *gin.Context) {
 	}
 
 	sort.Slice(leaderboard, func(i, j int) bool {
-		return leaderboard[i].Score < leaderboard[j].Score
+		return leaderboard[i].Score > leaderboard[j].Score
 	})
 
 	c.JSON(http.StatusOK, leaderboard)
