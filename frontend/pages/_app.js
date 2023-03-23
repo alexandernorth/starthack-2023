@@ -1,5 +1,6 @@
 import '@/styles/globals.css';
 import Layout from '@/components/Layout';
+import { UserProvider } from '@/app/context/UserContext';
 import Head from 'next/head';
 
 export default function App({ Component, pageProps }) {
@@ -12,7 +13,14 @@ export default function App({ Component, pageProps }) {
         <link rel='icon' href='/favicon.ico' />
       </Head>
       <Layout>
-        <Component {...pageProps} />
+        <UserProvider
+          name='John Doe'
+          score={100}
+          role='Developer'
+          workplace='Acme Inc.'
+        >
+          <Component {...pageProps} />
+        </UserProvider>
       </Layout>
     </div>
   );
