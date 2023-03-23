@@ -2,7 +2,7 @@ const ButtonGroup = ({ title1, title2 }) => {
     return (
         <div className="flex items-center justify-center">
             <div
-                className="inline-flex active:shadow-secondary"
+                className="inline-flex active:shadow-primary-800"
                 role="group"
             >
                 <button
