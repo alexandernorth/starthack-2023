@@ -15,7 +15,7 @@ func InitDB() error {
 		config.Config.PostgresHost,
 		config.Config.PostgresUser,
 		config.Config.PostgresPassword,
-		config.Config.PostgresDBName,
+		config.Config.PostgresDbName,
 		config.Config.PostgresPort,
 	)
 	var err error
