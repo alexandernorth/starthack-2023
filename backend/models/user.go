@@ -1,34 +1,14 @@
 package models
 
+import (
+	"gorm.io/gorm"
+)
+
 type User struct {
-	Name     string
-	Username string
-	Password string
-	Scores   []Score
-}
-
-func GetExampleUser() *User {
-
-	return &User{
-		Name:     "Geoff",
-		Username: "geoffthethird",
-		Password: "",
-		Scores: []Score{
-			{
-				Year:   2023,
-				Month:  1,
-				Amount: 5,
-			},
-			{
-				Year:   2023,
-				Month:  2,
-				Amount: 10,
-			},
-			{
-				Year:   2023,
-				Month:  3,
-				Amount: 20,
-			},
-		},
-	}
+	gorm.Model
+	Name            string  `json:"name"`
+	Username        string  `json:"username"`
+	Password        string  `json:"password"`
+	EmployeeProfile string  `json:"employeeProfile"`
+	Scores          []Score `json:"scores" gorm:"foreignKey:UserID"`
 }

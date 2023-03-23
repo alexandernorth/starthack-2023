@@ -9,3 +9,11 @@ services:
     build: ./backend
     ports:
       - "8080:8080"
+  
+  postgres:
+    image: "postgres:15.2-alpine3.17"
+    restart: unless-stopped
+    environment:
+      - POSTGRES_PASSWORD=postgres
+    ports:
+      - "5432:5432"
