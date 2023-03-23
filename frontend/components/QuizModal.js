@@ -1,5 +1,5 @@
-import React, { useState, forwardRef } from 'react';
-import { Dialog, Slide, Button, DialogTitle, IconButton } from '@mui/material';
+import React, { forwardRef } from 'react';
+import { Dialog, Slide, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
 import Quiz from './Quiz';
@@ -15,8 +15,6 @@ export default function Modal({ open, onClose }) {
   const randQuestionNr = Math.floor(Math.random() * questions.length);
   const question = questions[randQuestionNr];
   const image = objectivesImages.get(question.category);
-
-  console.log('Modal open: ', open);
 
   return (
     <Dialog
