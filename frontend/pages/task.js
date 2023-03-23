@@ -4,6 +4,8 @@ import Image from "next/image";
 import suitcase from "@/public/images/suitcase.png";
 import bike from "@/public/images/bike.png";
 import book from "@/public/images/book.png";
+import Header from "@/components/Header";
+
 
 const actions = [
   {
@@ -31,7 +33,7 @@ const actions = [
 const Task = () => {
   return (
     <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
-      <h1 className="mb-6 text-5xl text-center">Challenges</h1>
+      <Header title="CHALLENGES" />
       <div className="bg-gray-100 rounded-t-3xl pt-10 overflow-hidden shadow-md">
         <div className="flex px-5 pb-2 justify-center text-center text-grey-800 text-xl">
           Participate in the challenges to earn points and win prizes!
