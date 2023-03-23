@@ -3,9 +3,15 @@ import { useContext, useEffect, useState } from 'react';
 import { makeBoard, updateActiveTile } from './boardData';
 import { DailyDice } from './DailyDice';
 import { UserContext } from '@/app/context/UserContext';
-import { FaDice, FaPlus, FaChalkboardTeacher } from 'react-icons/fa';
-import { FaRegQuestionCircle } from 'react-icons/fa';
+import Modal from './QuizModal';
+import {
+  FaDice,
+  FaPlus,
+  FaChalkboardTeacher,
+  FaQuestionCircle,
+} from 'react-icons/fa';
 import { FaRegLightbulb } from 'react-icons/fa';
+import { Diversity1Outlined } from '@mui/icons-material';
 
 const Board = () => {
   const { user, addScore } = useContext(UserContext);
@@ -56,7 +62,7 @@ const TileRow = ({ tiles, userScore }) => {
     <div className='w-full grid grid-cols-4 gap-4 h-20'>
       {tiles.map((tile, i) =>
         tile ? (
-          <Tile tile={tile} key={i} userScore={userScore} />
+          <TileModalWrapper tile={tile} key={i} userScore={userScore} />
         ) : (
           <PlaceholderTile key={i} />
         )
@@ -65,8 +71,30 @@ const TileRow = ({ tiles, userScore }) => {
   );
 };
 
+const TileModalWrapper = ({ tile, userScore }) => {
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
+  return (
+    <>
+      <div onClick={openModal} className=''>
+        <Tile tile={tile} userScore={userScore} />
+      </div>
+      <Modal open={open} onClose={closeModal} />
+    </>
+  );
+};
+
 const Tile = ({ tile, userScore }) => {
   const pastTile = tile.score < userScore;
+
   return (
     <div
       className={cn(
@@ -88,8 +116,11 @@ const Tile = ({ tile, userScore }) => {
             tile.type == 'chance' && !pastTile,
         },
         {
-          'bg-gray-200 border-gray-400 text-gray-300':
-            tile.type == 'empty' || pastTile,
+          'bg-brown-200 border-brown-400 text-brown-300':
+            tile.type == 'empty' && !pastTile,
+        },
+        {
+          'bg-gray-200 border-gray-400 text-gray-300': pastTile,
         },
         { 'ring-offset-1 ring-4 ring-gray-700 shadow-2xl': tile.active },
         { 'opacity-90': !tile.active }
@@ -98,18 +129,19 @@ const Tile = ({ tile, userScore }) => {
       <div
         className={cn(
           'text-4xl text-center font-bold',
-          { 'text-primary-500': tile.type == 'quiz' && !pastTile },
-          { ' text-accent-500': tile.type == 'education' && !pastTile },
-          { ' text-secondary-500': tile.type == 'fact' && !pastTile },
-          { ' text-sky-500': tile.type == 'chance' && !pastTile },
-          { 'text-gray-500': tile.type == 'empty' || pastTile }
+          { 'text-primary-400': tile.type == 'quiz' && !pastTile },
+          { ' text-accent-400': tile.type == 'education' && !pastTile },
+          { ' text-secondary-400': tile.type == 'fact' && !pastTile },
+          { ' text-sky-400': tile.type == 'chance' && !pastTile },
+          { 'text-gray-300': tile.type == 'empty' || pastTile }
         )}
       >
-        {tile.type == 'quiz' && <FaRegQuestionCircle />}
+        {tile.type == 'quiz' && <FaQuestionCircle />}
         {tile.type == 'education' && <FaRegLightbulb />}
         {tile.type == 'fact' && <FaChalkboardTeacher />}
-        {tile.type == 'chance' && <FaDice className='text-4xl' />}
+        {tile.type == 'chance' && <FaDice />}
       </div>
+
       <div
         className={cn(
           'fixed mr-0.5 bottom-0 right-1 text-xl text-center font-bold'
