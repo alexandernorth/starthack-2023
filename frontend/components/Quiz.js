@@ -1,11 +1,10 @@
 import { useState } from "react";
 import Image from "next/image";
-import Link from 'next/link';
 import planet from "../public/images/planet-earth.png";
 import sad from "../public/images/sad.png";
 
 
-const Quiz = ({ question }) => {
+const Quiz = ({ question, onClick }) => {
     // TODO: get score from user
     // TODO: save new score to backend
     const [score, setScore] = useState(0);
@@ -27,7 +26,7 @@ const Quiz = ({ question }) => {
 
     return (
         <>
-            {displayResult ? <>{result ? <SuccessQuiz /> : <FailedQuiz />}</>
+            {displayResult ? <>{result ? <SuccessQuiz onClick={onClick} /> : <FailedQuiz onClick={onClick} />}</>
                 :
                 <><div className="flex flex-col items-center py-20 h-screen bg-primary-100">
                     <div className="text-xl font-bold text-primary text-center">
@@ -50,7 +49,7 @@ const Quiz = ({ question }) => {
     );
 }
 
-const SuccessQuiz = () => {
+const SuccessQuiz = ({ onClick }) => {
     return (
         <>
             <div className="bg-primary-100 pb-10">
@@ -66,18 +65,16 @@ const SuccessQuiz = () => {
                         height={60}
                     />
                     <h1 className="text-xl font-bold mt-2 mb-2 text-green-700">+1 Point</h1>
-                    <Link href="/" passHref legacyBehavior>
-                        <button class="mt-4 bg-primary-300 text-white font-bold py-2 px-4 ml-10 mr-10 rounded opacity-50">
-                            Back To Home
-                        </button>
-                    </Link>
+                    <button class="mt-4 bg-primary-300 text-white font-bold py-2 px-4 ml-10 mr-10 rounded opacity-50" onClick={onClick}>
+                        Back To Home
+                    </button>
                 </div>
             </div>
         </>
     );
 }
 
-const FailedQuiz = () => {
+const FailedQuiz = ({ onClick }) => {
     return (
         <div className="bg-primary-100 pb-10">
             <div className="text-center">
@@ -92,11 +89,9 @@ const FailedQuiz = () => {
                     height={60}
                 />
                 <h1 className="text-xl font-bold pt-1 mb-2 text-red-300">-1 Point</h1>
-                <Link href="/" passHref legacyBehavior>
-                    <button class="mt-4 bg-accent-300 text-grey-700 font-bold py-2 px-4 ml-10 mr-10 rounded opacity-50">
-                        Back To Home
-                    </button>
-                </Link>
+                <button class="mt-4 bg-accent-300 text-grey-700 font-bold py-2 px-4 ml-10 mr-10 rounded opacity-50" onClick={onClick}>
+                    Back To Home
+                </button>
             </div>
         </div>
     )
