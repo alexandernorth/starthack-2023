@@ -31,6 +31,7 @@ func main() {
 
 	userG := api.Group("/user")
 	userG.GET("/default", server.GetDefaultUser)
+	userG.PATCH("/default", server.PatchDefaultUserScore)
 	userG.GET("/default/consumption", server.GetConsumptionData)
 
 	leaderboard := api.Group("/leaderboard")
