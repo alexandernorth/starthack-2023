@@ -5,6 +5,7 @@ import (
 	"github.com/alexandernorth/starthack-2023/backend/models"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 	"time"
 )
 
@@ -20,13 +21,19 @@ type consumptionData struct {
 }
 
 func GetConsumptionData(c *gin.Context) {
+	siteQuery := c.DefaultQuery("site", "0")
+	site, err := strconv.Atoi(siteQuery)
+	if err != nil {
+		_ = c.AbortWithError(http.StatusBadRequest, err)
+		return
+	}
 
 	now := time.Now()
 	monthTS := time.Date(now.Year(), now.Month(), 1, 0, 0, 0, 0, now.Location())
 
 	var shiftLocal float64
 	res := db.DB.Model(models.SiteData{}).Select("AVG(kw)").
-		Where("time >= ? and date_part('HOUR', time) > 8 and date_part('HOUR', time) < 17 and site = ?", monthTS, models.Zell).
+		Where("time >= ? and date_part('HOUR', time) > 8 and date_part('HOUR', time) < 17 and site = ?", monthTS, site).
 		Find(&shiftLocal)
 	if res.Error != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, res.Error)
@@ -42,7 +49,7 @@ func GetConsumptionData(c *gin.Context) {
 	}
 	var local float64
 	res = db.DB.Model(models.SiteData{}).Select("AVG(kw)").
-		Where("time >= ? and site = ?", monthTS, models.Zell).
+		Where("time >= ? and site = ?", monthTS, site).
 		Find(&local)
 	if res.Error != nil {
 		_ = c.AbortWithError(http.StatusBadRequest, res.Error)
@@ -57,30 +64,28 @@ func GetConsumptionData(c *gin.Context) {
 		return
 	}
 
+	diffS := shiftLocal - shiftOverall
 	shiftMax := shiftLocal
-	shiftNormal := shiftOverall / shiftMax
 	if shiftLocal < shiftOverall {
 		shiftMax = shiftOverall
-		shiftNormal = -(shiftLocal / shiftMax)
 	}
 
+	diffO := local - overall
 	overallMax := local
-	overallNormal := overall / overallMax
 	if local < overall {
-		overallMax = overallNormal
-		overallNormal = -(local / overallMax)
+		overallMax = overall
 	}
 
 	cd := consumptionData{
 		Shift: consComp{
 			Local:      shiftLocal,
 			Overall:    shiftOverall,
-			Normalised: shiftNormal,
+			Normalised: diffS / shiftMax,
 		},
 		Site: consComp{
 			Local:      local,
 			Overall:    overall,
-			Normalised: overallNormal,
+			Normalised: diffO / overallMax,
 		},
 	}
 
