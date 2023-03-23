@@ -2,13 +2,12 @@ import cn from 'classnames';
 import { useContext, useEffect, useState } from 'react';
 import { makeBoard } from './boardData';
 import { UserContext } from '@/app/context/UserContext';
-import { FaPlus } from 'react-icons/fa';
+import { FaCheck, FaPlus } from 'react-icons/fa';
+import { BsDice3 } from 'react-icons/bs';
 
 const Board = () => {
   const { user, addScore } = useContext(UserContext);
   const [board, setBoard] = useState(makeBoard(user.score));
-
-  console.log(user.score);
 
   const updateScore = (score) => {
     addScore(score);
@@ -17,7 +16,7 @@ const Board = () => {
 
   return (
     <div className=''>
-      <div className='flex flex-col-reverse gap-4 p-2 pb-20'>
+      <div className='z-0 flex flex-col-reverse gap-4 p-2 pb-20'>
         {board.map((row, i) => (
           <TileRow tiles={row.tiles} key={i} />
         ))}
@@ -30,6 +29,23 @@ const Board = () => {
         >
           <FaPlus className='text-3xl m-2' />
         </button>
+        <DailyDice />
+      </div>
+    </div>
+  );
+};
+
+const DailyDice = () => {
+  return (
+    <div className='fixed z-90 top-4 w-full p-4'>
+      <div className='z-90 flex gap-2 p-4 justify-center items-center h-20 w-full rounded-2xl bg-white border-primary-300/60 drop-shadow-lg'>
+        <BsDice3 className='h-12 w-12' />
+        <div className='grow text-xl font-bold text-gray-900 ml-4'>
+          Collect your daily dice
+        </div>
+        <div className='rounded-full bg-green-100 p-1'>
+          <FaCheck className='text-2xl m-2 text-green-600' />
+        </div>
       </div>
     </div>
   );
