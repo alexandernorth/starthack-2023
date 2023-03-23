@@ -6,11 +6,15 @@ import (
 	"github.com/alexandernorth/starthack-2023/backend/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
 )
 
 var DB *gorm.DB
 
 func InitDB() error {
+
+	log.Printf("Initialising DB, this might take a while...\n")
+
 	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%d sslmode=disable TimeZone=Europe/Zurich",
 		config.Config.PostgresHost,
 		config.Config.PostgresUser,
@@ -27,6 +31,7 @@ func InitDB() error {
 	err = DB.AutoMigrate(
 		models.User{},
 		models.Score{},
+		models.SiteData{},
 	)
 	if err != nil {
 		return err
@@ -36,6 +41,13 @@ func InitDB() error {
 	if err != nil {
 		return err
 	}
+
+	err = loadSiteData()
+	if err != nil {
+		return err
+	}
+
+	log.Printf("Database Initialised.\n")
 
 	return nil
 }

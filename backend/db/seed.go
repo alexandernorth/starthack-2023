@@ -1,12 +1,16 @@
 package db
 
 import (
+	"archive/zip"
+	"bytes"
+	"encoding/json"
 	"errors"
 	"github.com/alexandernorth/starthack-2023/backend/models"
 	"github.com/goombaio/namegenerator"
 	"gorm.io/gorm"
 	"gorm.io/gorm/logger"
 	"math/rand"
+	"path"
 	"time"
 )
 
@@ -18,6 +22,7 @@ func createUsers() error {
 			Username:        "geoffthethird",
 			Password:        "",
 			EmployeeProfile: "Sales",
+			Site:            models.Zell,
 			Scores: []models.Score{
 				{
 					Year:   2023,
@@ -45,9 +50,10 @@ func createUsers() error {
 		users = append(users, models.User{
 			Model:           gorm.Model{ID: uint(i)},
 			Name:            name,
-			Username:        "eco" + name,
+			Username:        "eco-" + name,
 			Password:        "",
 			EmployeeProfile: "Sales",
+			Site:            models.Sites(rand.Intn(4)),
 			Scores: []models.Score{
 				{
 					Year:   2023,
@@ -83,4 +89,46 @@ func createUsers() error {
 		}
 	}
 	return nil
+}
+
+func loadSiteData() error {
+	var sdCount int64
+	res := DB.Model(models.SiteData{}).Count(&sdCount)
+	if res.Error != nil {
+		return res.Error
+	}
+
+	if sdCount != 0 {
+		return nil
+	}
+
+	reader, err := zip.OpenReader(path.Join("raw-data", "sitedata.json.zip"))
+	if err != nil {
+		return err
+	}
+
+	sd, err := reader.Open("sitedata.json")
+	if err != nil {
+		return err
+	}
+
+	var b bytes.Buffer
+	_, err = b.ReadFrom(sd)
+	if err != nil {
+		return err
+	}
+
+	var sites []models.SiteData
+	err = json.Unmarshal(b.Bytes(), &sites)
+	if err != nil {
+		return err
+	}
+
+	res = DB.CreateInBatches(sites, 5000)
+	if res.Error != nil {
+		return res.Error
+	}
+
+	return nil
+
 }
