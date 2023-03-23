@@ -34,7 +34,7 @@ type User struct {
 	gorm.Model
 	Name            string  `json:"name"`
 	Username        string  `json:"uname"`
-	Password        string  `json:"password"`
+	Password        string  `json:"-"`
 	EmployeeProfile string  `json:"employeeProfile"`
 	Site            Sites   `json:"site"`
 	Scores          []Score `json:"scores" gorm:"foreignKey:UserID"`
