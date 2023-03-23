@@ -4,6 +4,7 @@ import salad from "../public/images/salad.png";
 import saladSmall from "../public/images/saladSmall.png";
 import saladPurple from "../public/images/saladPurple.png";
 import popcorn from "../public/images/popcorn.png";
+import { Divider } from "@mui/material";
 
 // TODO: Create actual representative team
 const team = [
@@ -13,7 +14,7 @@ const team = [
         imageSrc: saladSmall,
     },
     {
-        name: 'John Doe',
+        name: 'Gabriella Matts',
         role: 'IT Architect',
         imageSrc: saladPurple,
     },
@@ -30,12 +31,12 @@ const Profile = () => {
         <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
                 <div className="relative mb-6">
-                    <div className="absolute top-0 left-0 -mt-12">
+                    <div className="absolute top-0 left-0 -mt-14">
                         <Image
                             src={salad}
                             alt="Profile Picture"
-                            width={80}
-                            height={80}
+                            width={100}
+                            height={100}
                             className="rounded-full border-4 border-white shadow-md"
                         />
                     </div>
@@ -55,10 +56,11 @@ const Profile = () => {
                         <p className="text-gray-700 text-lg font-bold">Finished 4th</p>
                     </div>
                 </div>
+                <Divider sx={{mt: 2}} />
                 {/* Team member list */}
-                <div className="mx-auto mt-8 max-w-5xl px-4 pb-12 sm:px-6 lg:px-8">
+                <div className="mx-auto mt-4 max-w-5xl px-2 pb-12 sm:px-6 lg:px-8">
                     <h2 className="text-sm font-medium text-gray-500">Team members</h2>
-                    <div className="mt-1 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                    <div className="mt-2 grid grid-cols-1 gap-4 sm:grid-cols-2">
                         {team.map((person) => (
                             <div
                                 key={person.name}
