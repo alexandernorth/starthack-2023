@@ -8,48 +8,40 @@ import (
 	"time"
 )
 
-func GetDefaultUser(c *gin.Context) {
+func getUser(id uint) (*models.User, error) {
+
 	user := &models.User{}
-	res := db.DB.Preload("Scores").First(user, 1)
+	res := db.DB.Preload("Scores").First(user, id)
 	if res.Error != nil {
-		_ = c.AbortWithError(http.StatusBadRequest, res.Error)
-		return
+		return nil, res.Error
 	}
-	year, month, _ := time.Now().Date()
 
-	var recent models.Score
+	rScore, err := user.GetCurrentMonthScore()
+	if err != nil {
+		return nil, err
+	}
 
-	if len(user.Scores) == 0 {
-		recent = models.Score{
+	if rScore == nil {
+		year, month, _ := time.Now().Date()
+		recent := models.Score{
 			Year:   year,
 			Month:  month,
-			Amount: 1000,
+			Amount: 0,
 		}
-
 		user.Scores = append(user.Scores, recent)
 		res := db.DB.Save(user)
 		if res.Error != nil {
-			_ = c.AbortWithError(http.StatusBadRequest, res.Error)
-			return
+			return nil, res.Error
 		}
+	}
+	return user, nil
+}
 
-	} else {
-		recent = user.Scores[len(user.Scores)-1]
-		if !(recent.Year == year && recent.Month == month) {
-			recent = models.Score{
-				Year:   year,
-				Month:  month,
-				Amount: 1000,
-			}
-
-			user.Scores = append(user.Scores, recent)
-
-			res := db.DB.Save(user)
-			if res.Error != nil {
-				_ = c.AbortWithError(http.StatusBadRequest, res.Error)
-				return
-			}
-		}
+func GetDefaultUser(c *gin.Context) {
+	user, err := getUser(1)
+	if err != nil {
+		_ = c.AbortWithError(http.StatusBadRequest, err)
+		return
 	}
 
 	c.JSON(http.StatusOK, user)

@@ -29,6 +29,9 @@ func main() {
 	userG := api.Group("/user")
 	userG.GET("/default", server.GetDefaultUser)
 
+	leaderboard := api.Group("/leaderboard")
+	leaderboard.GET("", server.GetLeaderboard)
+
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", config.Config.ListenAddr, config.Config.ListenPort),
 		Handler: router,
