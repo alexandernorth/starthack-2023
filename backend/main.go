@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/alexandernorth/starthack-2023/backend/config"
+	"github.com/alexandernorth/starthack-2023/backend/db"
 	"github.com/alexandernorth/starthack-2023/backend/server"
 	"github.com/gin-gonic/gin"
 	"log"
@@ -17,11 +18,19 @@ import (
 func main() {
 	config.ReadConfig()
 
+	err := db.InitDB()
+	if err != nil {
+		log.Fatal(err)
+	}
+
 	router := gin.Default()
 	api := router.Group("/api/v1")
 
 	userG := api.Group("/user")
-	userG.GET("/default", server.GetUser)
+	userG.GET("/default", server.GetDefaultUser)
+
+	leaderboard := api.Group("/leaderboard")
+	leaderboard.GET("", server.GetLeaderboard)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf("%s:%d", config.Config.ListenAddr, config.Config.ListenPort),

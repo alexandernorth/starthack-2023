@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM golang:1.20.2-alpine3.17
+FROM golang:1.20.2-bullseye
 
 WORKDIR /app
 
@@ -8,7 +8,7 @@ COPY go.mod ./
 COPY go.sum ./
 RUN go mod download
 
-COPY * ./
+COPY . ./
 
 RUN go build -o /backend
 

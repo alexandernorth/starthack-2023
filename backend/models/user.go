@@ -1,34 +1,31 @@
 package models
 
+import (
+	"gorm.io/gorm"
+	"time"
+)
+
 type User struct {
-	Name     string
-	Username string
-	Password string
-	Scores   []Score
+	gorm.Model
+	Name            string  `json:"name"`
+	Username        string  `json:"uname"`
+	Password        string  `json:"password"`
+	EmployeeProfile string  `json:"employeeProfile"`
+	Scores          []Score `json:"scores" gorm:"foreignKey:UserID"`
 }
 
-func GetExampleUser() *User {
+func (u *User) GetCurrentMonthScore() (*Score, error) {
+	var recent *Score
+	year, month, _ := time.Now().Date()
 
-	return &User{
-		Name:     "Geoff",
-		Username: "geoffthethird",
-		Password: "",
-		Scores: []Score{
-			{
-				Year:   2023,
-				Month:  1,
-				Amount: 5,
-			},
-			{
-				Year:   2023,
-				Month:  2,
-				Amount: 10,
-			},
-			{
-				Year:   2023,
-				Month:  3,
-				Amount: 20,
-			},
-		},
+	if len(u.Scores) == 0 {
+		return nil, nil
+	} else {
+		recent = &u.Scores[len(u.Scores)-1]
+		if !(recent.Year == year && recent.Month == month) {
+			return nil, nil
+		} else {
+			return recent, nil
+		}
 	}
 }
