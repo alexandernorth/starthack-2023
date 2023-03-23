@@ -1,9 +1,14 @@
 import '@/styles/globals.css';
 import Layout from '@/components/Layout';
 import { UserProvider } from '@/app/context/UserContext';
+import { BoardProvider } from '@/app/context/BoardContext';
 import Head from 'next/head';
+import { makeBoard } from '@/app/utils/BoardUtils';
+import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }) {
+  let newBoard = makeBoard(3);
+
   return (
     <div>
       <Head>
@@ -19,7 +24,9 @@ export default function App({ Component, pageProps }) {
           role='Developer'
           workplace='Acme Inc.'
         >
-          <Component {...pageProps} />
+          <BoardProvider initialBoard={newBoard}>
+            <Component {...pageProps} />
+          </BoardProvider>
         </UserProvider>
       </Layout>
     </div>
