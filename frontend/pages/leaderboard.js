@@ -19,7 +19,7 @@ function Leaderboard() {
 
   return (
     <div>
-      <div className="bg-primary-600 text-secondary-200 py-10 w-full max-w-md">
+      <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-10 max-w-md'>
         <Header title="Leader Board" />
         <div className="bg-primary-200 rounded-t-3xl overflow-hidden">
           <div className="pt-3 p-1">
