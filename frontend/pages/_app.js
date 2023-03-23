@@ -15,7 +15,7 @@ export default function App({ Component, pageProps }) {
       <Layout>
         <UserProvider
           name='John Doe'
-          score={100}
+          score={3}
           role='Developer'
           workplace='Acme Inc.'
         >

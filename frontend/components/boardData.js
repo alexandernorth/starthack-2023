@@ -323,17 +323,17 @@ const hasTile = [
 
 const tileTypes = ['empty', 'fact', 'quiz', 'education', 'chance'];
 
-const getRandomTile = (score) => {
+const getRandomTile = (score, active) => {
   const type = Math.floor(Math.random() * tileTypes.length);
   return {
     score,
     type: tileTypes[type],
-    active: false,
+    active: active || false,
     advance: 1,
   };
 };
 
-export const makeBoard = () => {
+export const makeBoard = (activeTile) => {
   const board = [];
   let score = 1;
 
@@ -350,7 +350,7 @@ export const makeBoard = () => {
 
     row.forEach((hasTile, j) => {
       if (hasTile) {
-        newRow.push(getRandomTile(tileScore));
+        newRow.push(getRandomTile(tileScore, activeTile === tileScore));
         tileScore = isInverse ? tileScore - 1 : tileScore + 1;
       } else {
         newRow.push(null);
@@ -369,9 +369,6 @@ const inverseDirection = (row, prevRow) => {
 
   const { minIndex, maxIndex } = getMinMaxTrueIndex(row);
   const { minIndex: prevMin, maxIndex: prevMax } = getMinMaxTrueIndex(prevRow);
-
-  console.log('min', minIndex, 'max', maxIndex);
-  console.log('prevMin', prevMin, 'prevMax', prevMax);
 
   return minIndex < prevMax;
 };
