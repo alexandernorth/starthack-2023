@@ -1,81 +1,20 @@
 import { useState, useEffect } from 'react';
-// import { getLeaders } from '../api/leaders'; // an API function that fetches the leaders data
 import RankingCard from '@/components/RankingCard';
-import salad from "../public/images/salad.png";
-import saladSmall from "../public/images/saladSmall.png";
-import saladPurple from "../public/images/saladPurple.png";
 import Header from '@/components/Header';
 import ButtonGroup from '@/components/ButtonGroup';
+import getLeaderboard from './api/leaderboard';
 
-
-const leadersList = [
-  {
-    id: 1,
-    name: 'Jane Cooper',
-    score: 100,
-    imageSrc: salad,
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    score: 88,
-    imageSrc: saladSmall,
-  },
-  {
-    id: 3,
-    name: "Jonny North",
-    score: 75,
-    imageSrc: saladPurple,
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    score: 88,
-    imageSrc: saladSmall,
-  },
-  {
-    id: 3,
-    name: "Jonny North",
-    score: 75,
-    imageSrc: saladPurple,
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    score: 88,
-    imageSrc: saladSmall,
-  },
-  {
-    id: 3,
-    name: "Jonny North",
-    score: 75,
-    imageSrc: saladPurple,
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    score: 88,
-    imageSrc: saladSmall,
-  },
-  {
-    id: 3,
-    name: "Jonny North",
-    score: 75,
-    imageSrc: saladPurple,
-  }
-]
 
 function Leaderboard() {
   const [leaders, setLeaders] = useState([]);
 
 
   useEffect(() => {
-    /* async function fetchData() {
-      const data = await getLeaders();
+    async function fetchData() {
+      const data = await getLeaderboard();
       setLeaders(data);
     }
-    fetchData(); */
-    setLeaders(leadersList);
+    fetchData();
   }, []);
 
   return (

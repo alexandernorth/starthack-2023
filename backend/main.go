@@ -6,6 +6,7 @@ import (
 	"github.com/alexandernorth/starthack-2023/backend/config"
 	"github.com/alexandernorth/starthack-2023/backend/db"
 	"github.com/alexandernorth/starthack-2023/backend/server"
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -24,6 +25,8 @@ func main() {
 	}
 
 	router := gin.Default()
+	router.Use(cors.Default())
+
 	api := router.Group("/api/v1")
 
 	userG := api.Group("/user")

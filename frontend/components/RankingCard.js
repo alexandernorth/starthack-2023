@@ -3,7 +3,7 @@ import Image from "next/image";
 const Rank = ({ rank }) => {
     return (
         <div className="bg-gray-300 text-primary-400 text-2xl flex-none mx-3 my-5 p-2 rounded-lg border">
-            0{rank+1}
+            {rank < 9 ? <>0{rank + 1}</> : <>{rank + 1}</>}
         </div>
     )
 }

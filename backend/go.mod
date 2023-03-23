@@ -3,6 +3,7 @@ module github.com/alexandernorth/starthack-2023/backend
 go 1.19
 
 require (
+	github.com/gin-contrib/cors v1.4.0
 	github.com/gin-gonic/gin v1.9.0
 	github.com/goombaio/namegenerator v0.0.0-20181006234301-989e774b106e
 	github.com/kelseyhightower/envconfig v1.4.0
