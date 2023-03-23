@@ -3,6 +3,7 @@ import first from "@/public/images/winner.png";
 import second from "@/public/images/2nd-place.png";
 import third from "@/public/images/3rd-place.png";
 
+
 const Rank = ({ rank }) => {
     if (rank === 0) {
         return (
@@ -63,7 +64,7 @@ const Leader = ({ leader, rank }) => {
                     alt="Profile Picture"
                     width={60}
                     height={60}
-                    className={`rounded-full border-4 border-white shadow-md ${rank === 0 && 'border-amber-400'} ${rank === 1 && 'border-zinc-400'} ${rank === 2 && 'border-amber-900'}`}
+                    className={`rounded-full border-4 border-white shadow-md ${rank === 0 && 'border-amber-300'} ${rank === 1 && 'border-stone-500'} ${rank === 2 && 'border-amber-900'}`}
                 />
             </div>
             <div className="min-w-0 flex-1">
