@@ -3,6 +3,7 @@ import Image from "next/image";
 import salad from "../public/images/salad.png";
 import saladSmall from "../public/images/saladSmall.png";
 import saladPurple from "../public/images/saladPurple.png";
+import popcorn from "../public/images/popcorn.png";
 
 // TODO: Create actual representative team
 const team = [
@@ -13,15 +14,20 @@ const team = [
     },
     {
         name: 'John Doe',
-        role: 'Manager Food',
+        role: 'IT Architect',
         imageSrc: saladPurple,
+    },
+    {
+        name: 'Janusch Kowalski',
+        role: 'Processengineer',
+        imageSrc: popcorn,
     }
 ]
 
 // TODO: Build out profile page with more details 
 const Profile = () => {
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+        <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
             <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
                 <div className="relative mb-6">
                     <div className="absolute top-0 left-0 -mt-12">
@@ -36,11 +42,8 @@ const Profile = () => {
                 </div>
                 <div className="text-center">
                     <h1 className="text-xl font-bold mb-2">Jonny North</h1>
-                    <p className="text-gray-600 text-sm mb-4">Sales Representative</p>
-                    <p className="text-gray-700 text-base">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                        pharetra risus enim, nec tristique velit mattis eu.
-                    </p>
+                    <p className="text-gray-600 text-sm mb-4"><em>Role:</em> Sales Representative</p>
+
                 </div>
                 <div className="flex justify-around mt-6">
                     <div className="text-center">
