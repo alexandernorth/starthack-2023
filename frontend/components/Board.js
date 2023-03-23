@@ -136,10 +136,7 @@ const Tile = ({ tile, userScore }) => {
           { 'text-gray-300': tile.type == 'empty' || pastTile }
         )}
       >
-        {tile.type == 'quiz' && <FaQuestionCircle />}
-        {tile.type == 'education' && <FaRegLightbulb />}
-        {tile.type == 'fact' && <FaChalkboardTeacher />}
-        {tile.type == 'chance' && <FaDice />}
+       <FaQuestionCircle />
       </div>
 
       <div
