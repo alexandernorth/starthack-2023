@@ -20,12 +20,12 @@ function Leaderboard() {
   return (
     <div>
       <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-10 max-w-md'>
-        <Header title="Leader Board" />
-        <div className="bg-primary-200 rounded-t-3xl overflow-hidden">
+        <Header title="LEADER BOARD" />
+        <div className="bg-gray-100 rounded-t-3xl overflow-hidden pb-6">
           <div className="pt-3 p-1">
             <ButtonGroup title1="Team" title2="Overall" />
           </div>
-          <div className="bg-primary-200 flex flex-col w-full pb-7">
+          <div className="bg-gray-100 flex flex-col w-full mb-10">
             {leaders.map((leader, index) => (
               <RankingCard leader={leader} index={index} />
             ))}

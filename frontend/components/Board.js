@@ -1,21 +1,20 @@
 import cn from 'classnames';
 import { useContext, useEffect, useState } from 'react';
-import { makeBoard, updateActiveTile } from './boardData';
 import { DailyDice } from './DailyDice';
 import { UserContext } from '@/app/context/UserContext';
+import { BoardContext } from '@/app/context/BoardContext';
 import Modal from './QuizModal';
 import {
-  FaDice,
   FaPlus,
-  FaChalkboardTeacher,
   FaQuestionCircle,
+  FaRegLightbulb,
+  FaChalkboardTeacher,
+  FaDice,
 } from 'react-icons/fa';
-import { FaRegLightbulb } from 'react-icons/fa';
-import { Diversity1Outlined } from '@mui/icons-material';
 
 const Board = () => {
   const { user, addScore } = useContext(UserContext);
-  const [board, setBoard] = useState(makeBoard(user.score));
+  const { board, updateActive } = useContext(BoardContext);
   const [showDailyDice, setShowDailyDice] = useState(true);
 
   const updateScore = (score) => {
@@ -28,8 +27,7 @@ const Board = () => {
   };
 
   useEffect(() => {
-    let newBoard = updateActiveTile(board, user.score);
-    setBoard(newBoard);
+    updateActive(user.score);
   }, [user.score]);
 
   useEffect(() => {
@@ -94,6 +92,16 @@ const TileModalWrapper = ({ tile, userScore }) => {
 
 const Tile = ({ tile, userScore }) => {
   const pastTile = tile.score < userScore;
+  const [iconLibraryLoaded, setIconLibraryLoaded] = useState(false);
+
+  useEffect(() => {
+    // Load the FontAwesome icon library only on the client-side
+    import('react-icons/fa').then(() => setIconLibraryLoaded(true));
+
+    if (tile.active) {
+      console.log('tile', tile, userScore, pastTile);
+    }
+  }, []);
 
   return (
     <div
@@ -133,10 +141,13 @@ const Tile = ({ tile, userScore }) => {
           { ' text-accent-400': tile.type == 'education' && !pastTile },
           { ' text-secondary-400': tile.type == 'fact' && !pastTile },
           { ' text-sky-400': tile.type == 'chance' && !pastTile },
-          { 'text-gray-300': tile.type == 'empty' || pastTile }
+          { 'text-gray-300': pastTile }
         )}
       >
-       <FaQuestionCircle />
+        {tile.type === 'quiz' && iconLibraryLoaded && <FaQuestionCircle />}
+        {tile.type === 'education' && iconLibraryLoaded && <FaRegLightbulb />}
+        {tile.type === 'fact' && iconLibraryLoaded && <FaChalkboardTeacher />}
+        {tile.type === 'chance' && iconLibraryLoaded && <FaDice />}
       </div>
 
       <div

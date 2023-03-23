@@ -1,14 +1,57 @@
 import Image from "next/image";
+import first from "@/public/images/winner.png";
+import second from "@/public/images/2nd-place.png";
+import third from "@/public/images/3rd-place.png";
+
 
 const Rank = ({ rank }) => {
+    if (rank === 0) {
+        return (
+            <div className="flex-shrink-0 pt-3 pl-2">
+                <Image
+                    src={first}
+                    alt="First rank"
+                    width={60}
+                    height={60}
+                />
+            </div>
+        )
+    }
+
+    if (rank === 1) {
+        return (
+            <div className="flex-shrink-0 pt-3 pl-2">
+                <Image
+                    src={second}
+                    alt="Second rank"
+                    width={60}
+                    height={60}
+                />
+            </div>
+        )
+    }
+
+    if (rank === 2) {
+        return (
+            <div className="flex-shrink-0 pt-3 pl-2">
+                <Image
+                    src={third}
+                    alt="Second rank"
+                    width={60}
+                    height={60}
+                />
+            </div>
+        )
+    }
+
     return (
-        <div className="bg-gray-300 text-primary-400 text-2xl flex-none mx-3 my-5 p-2 rounded-lg border">
+        <div className="bg-gray-200 text-gray-800 text-2xl flex-none mx-3 my-5 p-2 rounded-lg border">
             {rank < 9 ? <>0{rank + 1}</> : <>{rank + 1}</>}
         </div>
     )
 }
 
-const Leader = ({ leader }) => {
+const Leader = ({ leader, rank }) => {
     return (
         <div
             key={`${leader.name}-${Math.random()}`}
@@ -21,7 +64,7 @@ const Leader = ({ leader }) => {
                     alt="Profile Picture"
                     width={60}
                     height={60}
-                    className="rounded-full border-4 border-white shadow-md"
+                    className={`rounded-full border-4 border-white shadow-md ${rank === 0 && 'border-amber-300'} ${rank === 1 && 'border-stone-500'} ${rank === 2 && 'border-amber-900'}`}
                 />
             </div>
             <div className="min-w-0 flex-1">
@@ -39,7 +82,7 @@ const RankingCard = ({ leader, index }) => {
     return (
         <div className="flex flex-row">
             <Rank rank={index} />
-            <Leader leader={leader} />
+            <Leader leader={leader} rank={index} />
         </div >
     )
 };
