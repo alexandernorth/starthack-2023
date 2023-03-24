@@ -19,8 +19,8 @@ function Leaderboard() {
 
   return (
     <div>
-      <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-10 max-w-md'>
-        <Header title="LEADER BOARD" />
+      <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
+        <Header title="LEADERBOARD" />
         <div className="bg-gray-100 rounded-t-3xl overflow-hidden pb-6">
           <div className="pt-3 p-1">
             <ButtonGroup title1="Team" title2="Overall" />
