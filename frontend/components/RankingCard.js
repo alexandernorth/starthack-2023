@@ -55,8 +55,8 @@ const Leader = ({ leader, rank }) => {
     return (
         <div
             key={`${leader.name}-${Math.random()}`}
-            className="relative flex grow items-center rounded-lg border bg-gray-300 bg-white mr-3 ml-1 my-3 shadow-sm focus-within:ring-2 focus-within:ring-accent
-        -500 focus-within:ring-offset-2 hover:border-gray-400"
+            className={`relative flex grow items-center rounded-lg border bg-gray-300 bg-white mr-3 ml-1 my-3 shadow-sm focus-within:ring-2 focus-within:ring-accent
+        -500 focus-within:ring-offset-2 hover:border-gray-400 ${leader.name === "Geoff Jeffers" && "bg-primary-500"}`}
         >
             <div className="flex-shrink-0 pl-2">
                 <Image

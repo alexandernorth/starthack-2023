@@ -6,7 +6,6 @@ import saladPurple from "../public/images/saladPurple.png";
 import popcorn from "../public/images/popcorn.png";
 import { Divider } from "@mui/material";
 
-// TODO: Create actual representative team
 const team = [
     {
         name: 'Jane Cooper',
@@ -25,7 +24,6 @@ const team = [
     }
 ]
 
-// TODO: Build out profile page with more details 
 const Profile = () => {
     return (
         <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
@@ -42,21 +40,21 @@ const Profile = () => {
                     </div>
                 </div>
                 <div className="text-center">
-                    <h1 className="text-xl font-bold mb-2">Jonny North</h1>
+                    <h1 className="text-xl font-bold mb-2">Geoff Jeffers</h1>
                     <p className="text-gray-600 text-sm mb-4"><em>Role:</em> Sales Representative</p>
 
                 </div>
                 <div className="flex justify-around mt-6">
                     <div className="text-center">
-                        <h2 className="text-gray-600 text-sm font-bold">Current</h2>
-                        <p className="text-gray-700 text-lg font-bold">2nd Place</p>
+                        <h2 className="text-primary-600 text-sm font-bold">Current</h2>
+                        <p className="text-primary-500 text-lg font-bold">1st Place</p>
                     </div>
                     <div className="text-center">
                         <h2 className="text-gray-600 text-sm font-bold">Last Month</h2>
                         <p className="text-gray-700 text-lg font-bold">Finished 4th</p>
                     </div>
                 </div>
-                <Divider sx={{mt: 2}} />
+                <Divider sx={{ mt: 2 }} />
                 {/* Team member list */}
                 <div className="mx-auto mt-4 max-w-5xl px-2 pb-12 sm:px-6 lg:px-8">
                     <h2 className="text-sm font-medium text-gray-500">Team members</h2>
@@ -75,7 +73,7 @@ const Profile = () => {
                                         className="rounded-full border-4 border-white shadow-md"
                                     />
                                 </div>
-                                <div className="min-w-0 flex-1">
+                                <div className="min-w-0 flex-1 pl-5">
                                     <a href="#" className="focus:outline-none">
                                         <span className="absolute inset-0" aria-hidden="true" />
                                         <p className="text-sm font-medium text-gray-900">{person.name}</p>
