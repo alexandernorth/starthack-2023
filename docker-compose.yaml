@@ -15,6 +15,15 @@ services:
       postgres:
         condition: service_healthy
   
+  frontend:
+    build: ./frontend
+    ports:
+      - "80:3000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+
   postgres:
     image: "postgres:15.2-bullseye"
     restart: unless-stopped
