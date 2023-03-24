@@ -1,17 +1,15 @@
 import React, { forwardRef } from 'react';
-import { Dialog, Slide, Button, DialogTitle, IconButton } from '@mui/material';
+import { Dialog, Slide, DialogTitle, IconButton } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Image from 'next/image';
-import { objectivesImages } from '@/assets/ObjectivesImages';
-
+import Education from './Education';
+import puzzle from "../public/images/puzzle.png";
 
 const Transition = forwardRef(function Transition(props, ref) {
     return <Slide direction="up" ref={ref} {...props} />;
 });
 
 export default function EducationModal({ open, onClose }) {
-    const image = objectivesImages.get('Ecosystems');
-
     return (
         <div>
             <Dialog
@@ -23,14 +21,12 @@ export default function EducationModal({ open, onClose }) {
                 <DialogTitle>
                     <div className="relative mt-10">
                         <div className="absolute top-0 left-0 -mt-10">
-                            {image &&
-                                <Image
-                                    src={image}
-                                    alt="Profile Picture"
-                                    width={80}
-                                    height={80}
-                                />
-                            }
+                            <Image
+                                src={puzzle}
+                                alt="Profile Picture"
+                                width={80}
+                                height={80}
+                            />
                         </div>
                     </div>
                     <IconButton
@@ -41,9 +37,8 @@ export default function EducationModal({ open, onClose }) {
                         <CloseIcon />
                     </IconButton>
                 </DialogTitle>
-                {/* TODO: body */}
+                <Education onClick={onClose} />
             </Dialog>
         </div>
-
     );
 }

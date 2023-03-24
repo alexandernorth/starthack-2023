@@ -5,6 +5,8 @@ import suitcase from "@/public/images/suitcase.png";
 import bike from "@/public/images/bike.png";
 import book from "@/public/images/book.png";
 import Header from "@/components/Header";
+import { useState } from "react";
+import EducationModal from "@/components/EducationModal";
 
 
 const actions = [
@@ -53,22 +55,35 @@ const Task = () => {
 }
 
 const Item = ({ item }) => {
+  const [open, setOpen] = useState(false);
+
+  const openModal = () => {
+    setOpen(true);
+  };
+
+  const closeModal = () => {
+    setOpen(false);
+  };
+
   return (
-    <Paper elevation={4} sx={{ height: 160 }}>
-      <div className="relative justify-items-center">
-        <div className="absolute m-10">
-          <Image
-            src={item.icon}
-            alt={item.title}
-            width={100}
-            height={100}
-          />
+    <>
+      <Paper elevation={4} sx={{ height: 160 }} onClick={openModal}>
+        <div className="relative justify-items-center">
+          <div className="absolute m-10">
+            <Image
+              src={item.icon}
+              alt={item.title}
+              width={100}
+              height={100}
+            />
+          </div>
+          <div className="text-center">
+            <h1 className="text-xl font-bold mb-2 pt-2 text-secondary">{item.title}</h1>
+          </div>
         </div>
-        <div className="text-center">
-          <h1 className="text-xl font-bold mb-2 pt-2 text-secondary">{item.title}</h1>
-        </div>
-      </div>
-    </Paper>
+      </Paper>
+      <EducationModal open={open} onClose={closeModal} />
+    </>
   )
 }
 export default Task;
