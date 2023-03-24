@@ -9,8 +9,7 @@ import getLeaderboard from "@/pages/api/leaderboard";
 import { makeBoard } from '@/app/utils/BoardUtils';
 
 export default function App({ Component, pageProps }) {
-    const [user, setUser] = useState({name: "test", score: 1});
-    const [board, setBoard] = useState(makeBoard(3));
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         async function fetchData() {
@@ -18,7 +17,6 @@ export default function App({ Component, pageProps }) {
             setUser(user);
         }
         fetchData();
-        setBoard(makeBoard(user.score))
     }, []);
 
   return (
@@ -37,7 +35,7 @@ export default function App({ Component, pageProps }) {
                   role='Developer'
                   workplace='Acme Inc.'
               >
-                  <BoardProvider initialBoard={board}>
+                  <BoardProvider initialBoard={makeBoard(user.score)}>
                       <Component {...pageProps} />
                   </BoardProvider>
               </UserProvider>

@@ -7,6 +7,7 @@ export const BoardProvider = ({ initialBoard, children }) => {
   const [board, setBoard] = useState(initialBoard);
 
   const updateActive = (score) => {
+    console.log("update: " + score)
     let newBoard = updateActiveTile(board, score);
     setBoard(newBoard);
   };
