@@ -37,8 +37,8 @@ const Task = () => {
     <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
       <Header title="CHALLENGES" />
       <div className="bg-gray-100 rounded-t-3xl pt-10 overflow-hidden shadow-md">
-        <div className="flex px-5 pb-2 justify-center text-center text-grey-800 text-xl">
-          Participate in the challenges to earn points and win prizes!
+        <div className="flex px-5 pb-2 justify-center text-center text-secondary-800 font-bold text-xl">
+          Participate in the challenges to earn points and advance on the board!
         </div>
         <Box sx={{ width: '100%', p: 2, pt: 5, pb: 15 }}>
           <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
@@ -78,7 +78,7 @@ const Item = ({ item }) => {
             />
           </div>
           <div className="text-center">
-            <h1 className="text-xl font-bold mb-2 pt-2 text-secondary">{item.title}</h1>
+            <h1 className="text-xl font-bold mb-2 pt-2 text-primary">{item.title}</h1>
           </div>
         </div>
       </Paper>

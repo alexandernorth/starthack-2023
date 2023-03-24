@@ -71,7 +71,7 @@ const Leader = ({ leader, rank }) => {
                 <a href="#" className="focus:outline-none">
                     <span className="absolute inset-0" aria-hidden="true" />
                     <p className="text-lg font-medium color-primary text-gray-900 pl-5">{leader.name}</p>
-                    <p className="text-base font-medium text-gray-500 pl-5">{leader.score}</p>
+                    <p className={`text-base font-medium pl-5 ${leader.name === "Geoff Jeffers" ? "text-gray-100" : "text-gray-500"}`}>{leader.score}</p>
                 </a>
             </div>
         </div>

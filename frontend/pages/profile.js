@@ -27,7 +27,7 @@ const team = [
 const Profile = () => {
     return (
         <div className='bg-landscape bg-no-repeat bg-cover bg-center bg-fixed pt-40 max-w-md'>
-            <div className="w-full max-w-md p-6 bg-white rounded-lg shadow-lg">
+            <div className="w-full max-w-md p-6 bg-gray-100 rounded-t-3xl shadow-lg">
                 <div className="relative mb-6">
                     <div className="absolute top-0 left-0 -mt-14">
                         <Image
