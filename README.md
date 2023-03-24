@@ -18,3 +18,10 @@ Our app is built on the concept of gamification, which uses gaming elements to i
 Through the use of our app, employees will not only learn about sustainability but also be motivated to adopt more sustainable habits in their daily lives. Our app provides a platform for friendly competition among colleagues, with the chance to win rewards for sustainable behavior both inside and outside of work. This can lead to a more significant impact on the environment beyond the workplace, contributing to a more sustainable future for all. Our app is designed to foster a culture of sustainability awareness and action among your employees, which can lead to more significant changes in your business's overall sustainability practices.
 
 With state of the art technologies such as ReactJs for frontend and Go-Gin for REST API Integration we created a beautiful app that allows employees to making an impact a fun interaction. Using live data aggregated from factory data sources (provided by the Bell Food Group) we can give insightful information and trends on current consumption behaviors. 
+
+
+## Demo
+
+![Screens](https://github.com/alexandernorth/starthack-2023/blob/main/images/screen1.png)
+![Screens2](https://github.com/alexandernorth/starthack-2023/blob/main/images/screen2.png)
+![Screens3](https://github.com/alexandernorth/starthack-2023/blob/main/images/screen3.png)
