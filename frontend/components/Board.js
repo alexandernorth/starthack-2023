@@ -98,46 +98,46 @@ const Tile = ({ tile, userScore }) => {
       className={cn(
         'flex items-center justify-center h-20 rounded-xl border-2 drop-shadow-md',
         {
-          'bg-primary-200 border-primary-400 text-primary-300':
+          ' bg-primary-200 border-primary-400 text-primary-300':
             tile.type == 'quiz' && !pastTile,
         },
         {
-          'bg-accent-200 border-accent-400 text-accent-300':
+          ' bg-accent-200 border-accent-400 text-accent-300':
             tile.type == 'education' && !pastTile,
         },
         {
-          'bg-secondary-200 border-secondary-400 text-secondary-300':
+          ' bg-secondary-200 border-secondary-400 text-secondary-300':
             tile.type == 'fact' && !pastTile,
         },
         {
-          'bg-sky-200 border-sky-400 text-sky-300':
+          ' bg-sky-200 border-sky-400 text-sky-300':
             tile.type == 'chance' && !pastTile,
         },
         {
-          'bg-brown-200 border-brown-400 text-brown-300':
+          ' bg-brown-200 border-brown-400 text-brown-300':
             tile.type == 'empty' && !pastTile,
         },
         {
-          'bg-gray-200 border-gray-400 text-gray-300': pastTile,
+          ' bg-gray-200 border-gray-400 text-gray-300': pastTile,
         },
-        { 'ring-offset-1 ring-4 ring-gray-700 shadow-2xl': tile.active },
-        { 'opacity-90': !tile.active }
+        { ' ring-offset-1 ring-4 ring-gray-700 shadow-2xl': tile.active },
+        { ' opacity-90': !tile.active }
       )}
     >
       <div
         className={cn(
           'text-4xl text-center font-bold',
-          { 'text-primary-400': tile.type == 'quiz' && !pastTile },
+          { ' text-primary-400': tile.type == 'quiz' && !pastTile },
           { ' text-accent-400': tile.type == 'education' && !pastTile },
           { ' text-secondary-400': tile.type == 'fact' && !pastTile },
           { ' text-sky-400': tile.type == 'chance' && !pastTile },
           { ' text-black/0': tile.type == 'empty' },
-          { 'text-gray-300': pastTile }
+          { ' text-gray-900/10': pastTile }
         )}
       >
         {tile.type === 'quiz' && <FaQuestionCircle />}
-        {tile.type === 'education' && <FaRegLightbulb />}
-        {tile.type === 'fact' && <FaChalkboardTeacher />}
+        {tile.type === 'education' && <FaChalkboardTeacher />}
+        {tile.type === 'fact' && <FaRegLightbulb />}
         {tile.type === 'chance' && <FaDice />}
         {tile.type === 'empty' && <FaPlus />}
       </div>
