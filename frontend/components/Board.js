@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { DailyDice } from './DailyDice';
 import { UserContext } from '@/app/context/UserContext';
 import { BoardContext } from '@/app/context/BoardContext';
-import Modal from './QuizModal';
+import QuizModal from './QuizModal';
 import {
   FaPlus,
   FaQuestionCircle,
@@ -11,6 +11,7 @@ import {
   FaChalkboardTeacher,
   FaDice,
 } from 'react-icons/fa';
+import EducationModal from './EducationModal';
 
 const Board = () => {
   const { user, addScore } = useContext(UserContext);
@@ -45,7 +46,7 @@ const Board = () => {
         <button
           type='button'
           onClick={() => updateScore(1)}
-          className='fixed z-90 bottom-20 right-4 rounded-full bg-secondary-600 p-2 text-white shadow-sm hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600'
+          className='invisible fixed z-90 bottom-20 right-4 rounded-full bg-secondary-600 p-2 text-white shadow-sm hover:bg-secondary-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-secondary-600'
         >
           <FaPlus className='text-3xl m-2' />
         </button>
@@ -85,7 +86,7 @@ const TileModalWrapper = ({ tile, userScore }) => {
       <div onClick={openModal} className=''>
         <Tile tile={tile} userScore={userScore} />
       </div>
-      <Modal open={open} onClose={closeModal} />
+      <QuizModal open={open} onClose={closeModal} />
     </>
   );
 };
