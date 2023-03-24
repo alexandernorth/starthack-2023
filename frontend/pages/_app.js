@@ -7,12 +7,10 @@ import { getDefaultUser } from "@/pages/api/user";
 import {useEffect, useState} from "react";
 import getLeaderboard from "@/pages/api/leaderboard";
 import { makeBoard } from '@/app/utils/BoardUtils';
-import { useEffect } from 'react';
 
 export default function App({ Component, pageProps }) {
-  let newBoard = makeBoard(3);
-
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState({name: "test", score: 1});
+    const [board, setBoard] = useState(makeBoard(3));
 
     useEffect(() => {
         async function fetchData() {
@@ -20,6 +18,7 @@ export default function App({ Component, pageProps }) {
             setUser(user);
         }
         fetchData();
+        setBoard(makeBoard(user.score))
     }, []);
 
   return (
@@ -34,17 +33,15 @@ export default function App({ Component, pageProps }) {
           {user &&
               <UserProvider
                   name={user.name}
-                  score={user.scores[user.scores.length - 1].Amount}
+                  score={user.score}
                   role='Developer'
                   workplace='Acme Inc.'
               >
-                  <Component {...pageProps} />
+                  <BoardProvider initialBoard={board}>
+                      <Component {...pageProps} />
+                  </BoardProvider>
               </UserProvider>
           }
-          <BoardProvider initialBoard={newBoard}>
-            <Component {...pageProps} />
-          </BoardProvider>
-        </UserProvider>
       </Layout>
     </div>
   );

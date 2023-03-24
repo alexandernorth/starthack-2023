@@ -3,7 +3,7 @@ async function getDefaultUser() {
     const res = await fetch("http://localhost:8080/api/v1/user/default",
         { method: "GET" });
     const user = await res.json();
-    return user;
+    return {name: user.name, score: user.scores[user.scores.length - 1].Amount};
 }
 
 async function patchDefaultUserScore(score) {
@@ -20,7 +20,7 @@ async function patchDefaultUserScore(score) {
             }),
         })
     const user = await res.json()
-    return user
+    return {name: user.name, score: user.scores[user.scores.length - 1].Amount};
 }
 
 export {getDefaultUser, patchDefaultUserScore};

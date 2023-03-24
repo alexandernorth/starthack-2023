@@ -8,7 +8,7 @@ export const UserProvider = ({ name, score, role, workplace, children }) => {
 
   const addScore = (score) => {
     patchDefaultUserScore(user.score+score).then(function (updatedUser) {
-      setUser({...user, score: updatedUser.scores[updatedUser.scores.length - 1].Amount});
+      setUser({...user, score: updatedUser.score});
     })
   };
 
