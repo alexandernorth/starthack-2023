@@ -28,9 +28,11 @@ services:
     image: "postgres:15.2-bullseye"
     restart: unless-stopped
     environment:
+      - POSTGRES_USER=postgres
+      - PGUSER=postgres
       - POSTGRES_PASSWORD=postgres
-    ports:
-      - "5432:5432"
+        #ports:
+      #      - "5432:5432"
     healthcheck:
       test: "/usr/bin/pg_isready"
       interval: 5s
