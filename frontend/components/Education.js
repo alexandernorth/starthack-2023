@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react';
-import Image from 'next/image';
-import { Card, CardContent } from '@mui/material';
-import { FaCaretRight, FaArrowRight, FaQuestionCircle } from 'react-icons/fa';
+import { useState } from 'react';
+import { FaCaretRight, FaArrowRight } from 'react-icons/fa';
 
 const Education = ({ onClick }) => {
   const [data, setData] = useState(null);
@@ -25,47 +23,45 @@ const Education = ({ onClick }) => {
           <h1 className='text-2xl mb-4 text-gray-700 font-bold text-left'>
             Electricity Consumption at our Factories
           </h1>
-          <Card className='bg-primary-600 w-full'>
-            <CardContent>
-              <h1 className='text-lg text-primary-100 font-bold text-center'>
-                Average Electricity Consumption
-              </h1>
-              <div className='flex flex-row mt-4 items-center justify-between'>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
-                    <FaArrowRight className='text-5xl text-orange-500 -rotate-12' />
-                  </div>
-                </div>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
-                    <FaArrowRight className='text-5xl text-red-500 -rotate-45' />
-                  </div>
-                </div>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
-                    <FaArrowRight className='text-5xl text-green-400 rotate-12' />
-                  </div>
+          <div className='bg-primary-600 w-full rounded-xl flex flex-col py-4 px-2'>
+            <h1 className='text-lg text-primary-100 font-bold text-center'>
+              Average Electricity Consumption
+            </h1>
+            <div className='flex flex-row mt-4 items-center justify-between'>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
+                  <FaArrowRight className='text-5xl text-orange-500 -rotate-12' />
                 </div>
               </div>
-              <div className='flex flex-row items-center justify-between'>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
-                    Shift
-                  </h1>
-                </div>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
-                    Zell
-                  </h1>
-                </div>
-                <div className='flex flex-col items-center justify-center basis-1/3'>
-                  <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
-                    Bell Food Group
-                  </h1>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
+                  <FaArrowRight className='text-5xl text-red-500 -rotate-45' />
                 </div>
               </div>
-            </CardContent>
-          </Card>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <div className='flex h-20 w-20 items-center justify-center rounded-full bg-gray-200'>
+                  <FaArrowRight className='text-5xl text-green-400 rotate-12' />
+                </div>
+              </div>
+            </div>
+            <div className='flex flex-row items-center justify-between'>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
+                  Shift
+                </h1>
+              </div>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
+                  Zell
+                </h1>
+              </div>
+              <div className='flex flex-col items-center justify-center basis-1/3'>
+                <h1 className='text-sm text-primary-100 font-bold text-center mt-2'>
+                  Bell Food Group
+                </h1>
+              </div>
+            </div>
+          </div>
           <div className='mt-4 text-base'>
             Energy consumption during your shift is climbing slowly compared to
             the global Bell Food Group Average. However, your shift is doing
