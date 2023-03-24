@@ -92,16 +92,6 @@ const TileModalWrapper = ({ tile, userScore }) => {
 
 const Tile = ({ tile, userScore }) => {
   const pastTile = tile.score < userScore;
-  const [iconLibraryLoaded, setIconLibraryLoaded] = useState(false);
-
-  useEffect(() => {
-    // Load the FontAwesome icon library only on the client-side
-    import('react-icons/fa').then(() => setIconLibraryLoaded(true));
-
-    if (tile.active) {
-      console.log('tile', tile, userScore, pastTile);
-    }
-  }, []);
 
   return (
     <div
@@ -141,13 +131,15 @@ const Tile = ({ tile, userScore }) => {
           { ' text-accent-400': tile.type == 'education' && !pastTile },
           { ' text-secondary-400': tile.type == 'fact' && !pastTile },
           { ' text-sky-400': tile.type == 'chance' && !pastTile },
+          { ' text-black/0': tile.type == 'empty' },
           { 'text-gray-300': pastTile }
         )}
       >
-        {tile.type === 'quiz' && iconLibraryLoaded && <FaQuestionCircle />}
-        {tile.type === 'education' && iconLibraryLoaded && <FaRegLightbulb />}
-        {tile.type === 'fact' && iconLibraryLoaded && <FaChalkboardTeacher />}
-        {tile.type === 'chance' && iconLibraryLoaded && <FaDice />}
+        {tile.type === 'quiz' && <FaQuestionCircle />}
+        {tile.type === 'education' && <FaRegLightbulb />}
+        {tile.type === 'fact' && <FaChalkboardTeacher />}
+        {tile.type === 'chance' && <FaDice />}
+        {tile.type === 'empty' && <FaPlus />}
       </div>
 
       <div
